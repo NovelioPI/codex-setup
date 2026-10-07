@@ -1,0 +1,3 @@
+# Preserve source content, searches, and review evidence.
+[hooks]
+exclude_commands = ["git diff", "git show", "gh pr diff", "cat", "read", "rg", "grep", "head", "tail", "sed"]
