@@ -71,6 +71,89 @@ Ask Codex to explain the loaded working agreements before you request edits. Res
 
 The Playwright skill requires Node.js and `npx`. Its wrapper uses `@playwright/cli` on demand. Browser checks also require the browsers supported by that CLI. Follow its setup output when you first use it.
 
+## Start a project
+
+Start with a planning conversation. Then build one demonstrable milestone at a time. You provide the goal and feedback. The main session coordinates the relevant agents and checks.
+
+### 1. Open the project
+
+For a new project, choose an unused folder name:
+
+```bash
+mkdir my-project
+cd my-project
+git init
+codex
+```
+
+For an existing project, start Codex from its repository root. Codex loads global instructions and applicable project `AGENTS.md` files. See the [official instruction-loading guidance](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
+
+### 2. Discuss the goal
+
+Paste this prompt and replace the placeholders. Leave technical choices unknown when you need a recommendation.
+
+```text
+Use $plan-work to help me start this project.
+
+Idea: [what I want to build]
+Users: [who will use it]
+Main outcome: [what they should accomplish]
+Constraints: [budget, hosting, integrations, deadline—or unknown]
+
+Discuss first; do not edit files yet.
+Ask consequential questions in small rounds.
+Recommend the simplest suitable stack and explain the tradeoffs.
+For an existing project, inspect relevant configuration and preserve
+its conventions unless a change is justified and agreed.
+If there is a UI, own the design direction and reusable component
+strategy. Use project-specific inspiration.
+
+Propose a small first milestone with observable acceptance checks.
+```
+
+### 3. Write the plan and build the first milestone
+
+After you agree on the approach, use this prompt:
+
+```text
+Write the agreed plan to docs/plans/initial-build.md, or use the
+existing project planning location.
+Create or update a concise project AGENTS.md and README.
+Set up the project and implement milestone 1.
+
+Delegate bounded tasks when useful. Run appropriate checks and
+independent review. Show me how to try the result before continuing.
+Follow the configured human checkpoints. Do not publish or push.
+```
+
+Keep the initial documents small:
+
+| File | Content |
+| --- | --- |
+| `AGENTS.md` | Project commands, boundaries, conventions, and important constraints |
+| `README.md` | What the project does and how to run it |
+| `docs/plans/initial-build.md` | Decisions, milestones, assigned tasks, acceptance checks, and progress |
+
+Add project-specific facts to `AGENTS.md`. Avoid repeating global agreements. For a small, clear task, skip the plan file and implement directly.
+
+### 4. Try the result and give feedback
+
+The first milestone should complete one useful flow with relevant tests. For example: create a record and retrieve it. Try the result and comment on its behavior or design. The main session coordinates corrections and updates the plan.
+
+For large work, accept the milestone before the next one starts. Critical work also needs the configured checkpoint before consequential actions.
+
+### 5. Resume from the plan
+
+In a later session, use this prompt with the actual plan path:
+
+```text
+Continue docs/plans/initial-build.md.
+Verify its current status against the code and checks.
+Summarize the next milestone before starting it.
+```
+
+For a small project, local Git and one plan are enough. Add GitHub issues and PRs when remote tracking or review is useful. Authorize external writes separately. Install additional skills or plugins when a concrete task needs them.
+
 ## Optional RTK output compression
 
 RTK reduces the output of supported development commands. Install it with the [official RTK instructions](https://github.com/rtk-ai/rtk#installation), then check:
